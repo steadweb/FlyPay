@@ -25,6 +25,7 @@ final class Authentication
 
         try {
             if(!$token) {
+                throw new \Exception("Token missing within headers");
             }
 
             // For the moment, use our generated key pair to validate.
