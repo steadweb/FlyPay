@@ -1,0 +1,33 @@
+{
+    "name": "steadweb/flypay",
+    "description": "A technical test for FlyPay",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Luke Steadman",
+            "email": "ljsteadman@gmail.com"
+        }
+    ],
+    "repositories": [
+        {
+            "type": "vcs",
+            "url": "https://github.com/steadweb/php-jwt.git"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "Steadweb\\Flypay\\": "app",
+            "Steadweb\\Flypay\\Tests\\": "tests"
+        }
+    },
+    "require": {
+        "php": ">=7.0",
+        "firebase/php-jwt": "dev-master",
+        "slim/slim": "^3.0",
+        "doctrine/migrations": "^1.4",
+        "doctrine/orm": "^2.5"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^5.7"
+    }
+}
