@@ -1,0 +1,4 @@
+name: Flypay Migrations
+migrations_namespace: Steadweb\Flypay\Migrations
+table_name: flypay__migrations
+migrations_directory: migrations
