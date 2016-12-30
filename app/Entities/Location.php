@@ -61,28 +61,6 @@ final class Location extends AbstractEntity
     }
 
     /**
-     * Get the UUID.
-     *
-     * @return string
-     */
-    public function getUuid(): string
-    {
-        return $this->uuid;
-    }
-
-    /**
-     * Set the UUID.
-     *
-     * @param string $uuid
-     *
-     * @return string
-     */
-    public function setUuid(string $uuid)
-    {
-        $this->uuid = $uuid;
-    }
-
-    /**
      * Set the title.
      *
      * @return string
