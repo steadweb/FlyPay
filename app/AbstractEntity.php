@@ -15,4 +15,14 @@ use Steadweb\Flypay\Traits\PreUpdate;
 abstract class AbstractEntity
 {
     use Dates, PrePersist, PreUpdate;
+
+    /**
+     * Get array copy of object
+     *
+     * @return array
+     */
+    public function getArrayCopy()
+    {
+        return get_object_vars($this);
+    }
 }
