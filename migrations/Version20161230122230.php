@@ -8,7 +8,7 @@ use Doctrine\DBAL\Schema\Schema;
 /**
  * Auto-generated Migration: Please modify to your needs!
  */
-class Version20161223150330 extends AbstractMigration
+class Version20161230122230 extends AbstractMigration
 {
     /**
      * @param Schema $schema
@@ -20,7 +20,7 @@ class Version20161223150330 extends AbstractMigration
 
         $this->addSql('CREATE TABLE flypay__cards (id CHAR(36) NOT NULL COMMENT \'(DC2Type:guid)\', last4 VARCHAR(255) NOT NULL, type VARCHAR(255) NOT NULL, created DATETIME NOT NULL, updated DATETIME DEFAULT NULL, PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci ENGINE = InnoDB');
         $this->addSql('CREATE TABLE flypay__locations (id CHAR(36) NOT NULL COMMENT \'(DC2Type:guid)\', title VARCHAR(255) NOT NULL, address LONGTEXT DEFAULT NULL, latitude VARCHAR(255) DEFAULT NULL, longitude VARCHAR(255) DEFAULT NULL, created DATETIME NOT NULL, updated DATETIME DEFAULT NULL, PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci ENGINE = InnoDB');
-        $this->addSql('CREATE TABLE flypay__payments (id CHAR(36) NOT NULL COMMENT \'(DC2Type:guid)\', card_id CHAR(36) DEFAULT NULL COMMENT \'(DC2Type:guid)\', location_id CHAR(36) DEFAULT NULL COMMENT \'(DC2Type:guid)\', amount INT NOT NULL, gratuity INT DEFAULT NULL, reference VARCHAR(255) NOT NULL, created DATETIME NOT NULL, updated DATETIME DEFAULT NULL, INDEX IDX_ACF128984ACC9A20 (card_id), INDEX IDX_ACF1289864D218E (location_id), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci ENGINE = InnoDB');
+        $this->addSql('CREATE TABLE flypay__payments (id CHAR(36) NOT NULL COMMENT \'(DC2Type:guid)\', card_id CHAR(36) NOT NULL COMMENT \'(DC2Type:guid)\', location_id CHAR(36) NOT NULL COMMENT \'(DC2Type:guid)\', amount INT NOT NULL, gratuity INT DEFAULT NULL, reference VARCHAR(255) NOT NULL, created DATETIME NOT NULL, updated DATETIME DEFAULT NULL, INDEX IDX_ACF128984ACC9A20 (card_id), INDEX IDX_ACF1289864D218E (location_id), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci ENGINE = InnoDB');
         $this->addSql('CREATE TABLE flypay__payments_tables (payment_id CHAR(36) NOT NULL COMMENT \'(DC2Type:guid)\', table_id CHAR(36) NOT NULL COMMENT \'(DC2Type:guid)\', INDEX IDX_384585F24C3A3BB (payment_id), INDEX IDX_384585F2ECFF285C (table_id), PRIMARY KEY(payment_id, table_id)) DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci ENGINE = InnoDB');
         $this->addSql('CREATE TABLE flypay__tables (id CHAR(36) NOT NULL COMMENT \'(DC2Type:guid)\', seats INT NOT NULL, created DATETIME NOT NULL, updated DATETIME DEFAULT NULL, PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci ENGINE = InnoDB');
         $this->addSql('ALTER TABLE flypay__payments ADD CONSTRAINT FK_ACF128984ACC9A20 FOREIGN KEY (card_id) REFERENCES flypay__cards (id)');
