@@ -8,6 +8,7 @@ use Steadweb\Flypay\AbstractEntity;
 /**
  * @ORM\Entity
  * @ORM\Table(name="flypay__locations")
+ * @ORM\HasLifecycleCallbacks
  */
 final class Location extends AbstractEntity
 {

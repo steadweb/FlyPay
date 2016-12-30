@@ -13,6 +13,7 @@ use Steadweb\Flypay\AbstractEntity;
 /**
  * @ORM\Entity
  * @ORM\Table(name="flypay__payments")
+ * @ORM\HasLifecycleCallbacks
  */
 final class Payment extends AbstractEntity
 {
