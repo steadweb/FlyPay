@@ -10,7 +10,7 @@ use Steadweb\Flypay\AbstractEntity;
  * @ORM\Table(name="flypay__cards")
  * @ORM\HasLifecycleCallbacks
  */
-final class Card extends AbstractEntity
+class Card extends AbstractEntity
 {
     /**
      * @ORM\Id
@@ -94,5 +94,17 @@ final class Card extends AbstractEntity
     public function setType(string $type)
     {
         $this->type = $type;
+    }
+
+    /**
+     * @return array
+     */
+    public function jsonSerialize(): array
+    {
+        return [
+            'id' => $this->getId(),
+            'last4' => $this->getLast4(),
+            'type' => $this->getType()
+        ];
     }
 }

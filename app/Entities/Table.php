@@ -10,7 +10,7 @@ use Steadweb\Flypay\AbstractEntity;
  * @ORM\Table(name="flypay__tables")
  * @ORM\HasLifecycleCallbacks
  */
-final class Table extends AbstractEntity
+class Table extends AbstractEntity
 {
     /**
      * @ORM\Id
@@ -64,5 +64,16 @@ final class Table extends AbstractEntity
     public function setSeats(int $seats)
     {
         $this->seats = $seats;
+    }
+
+    /**
+     * @return array
+     */
+    public function jsonSerialize(): array
+    {
+        return [
+            'id' => $this->getId(),
+            'seats' => $this->getSeats()
+        ];
     }
 }

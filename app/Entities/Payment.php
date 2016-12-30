@@ -9,51 +9,54 @@ use Doctrine\ORM\Mapping\ManyToMany as ManyToMany;
 use Doctrine\ORM\Mapping\JoinTable as JoinTable;
 use Doctrine\ORM\Mapping\JoinColumn as JoinColumn;
 use Steadweb\Flypay\AbstractEntity;
+use Steadweb\Flypay\Entities\Card;
+use Steadweb\Flypay\Entities\Location;
+use Steadweb\Flypay\Entities\Table;
 
 /**
  * @ORM\Entity
  * @ORM\Table(name="flypay__payments")
  * @ORM\HasLifecycleCallbacks
  */
-final class Payment extends AbstractEntity
+class Payment extends AbstractEntity
 {
     /**
      * @ORM\Id
      * @ORM\Column(type="guid")
      * @ORM\GeneratedValue(strategy="UUID")
      */
-    private $id;
+    protected $id;
 
     /**
      * @ORM\Column(name="amount", type="integer")
      *
      * @var int
      */
-    private $amount;
+    protected $amount;
 
     /**
      * @ORM\Column(name="gratuity", type="integer", nullable=true)
      *
      * @var int
      */
-    private $gratuity;
+    protected $gratuity;
 
     /**
      * @ORM\Column(name="reference", type="string")
      *
      * @var string
      */
-    private $reference;
+    protected $reference;
 
     /**
      * Each Payment has an associated Card.
      *
      * @ManyToOne(targetEntity="Steadweb\Flypay\Entities\Card")
-     * @JoinColumn(name="card_id", referencedColumnName="id")
+     * @JoinColumn(name="card_id", referencedColumnName="id", nullable=false)
      *
      * @var Card
      */
-    private $card;
+    protected $card;
 
     /**
      * Each Payment has an associated Table.
@@ -66,17 +69,17 @@ final class Payment extends AbstractEntity
      *
      * @var ArrayCollection
      */
-    private $tables;
+    protected $tables;
 
     /**
      * Each Payment has an associated Location.
      *
      * @ManyToOne(targetEntity="Steadweb\Flypay\Entities\Location")
-     * @JoinColumn(name="location_id", referencedColumnName="id")
+     * @JoinColumn(name="location_id", referencedColumnName="id", nullable=false)
      *
      * @var Location
      */
-    private $location;
+    protected $location;
 
     /**
      * Payment constructor.
@@ -94,6 +97,16 @@ final class Payment extends AbstractEntity
     public function getCard()
     {
         return $this->card;
+    }
+
+    /**
+     * Set the card relation.
+     *
+     * @return void
+     */
+    public function setCard(Card $card)
+    {
+        $this->card = $card;
     }
 
     /**
@@ -117,9 +130,19 @@ final class Payment extends AbstractEntity
     }
 
     /**
+     * Set the location relation.
+     *
+     * @return void
+     */
+    public function setLocation(Location $location)
+    {
+        $this->location = $location;
+    }
+
+    /**
      * Get the payment id.
      *
-     * @ORM\return integer
+     * @return integer
      */
     public function getId(): int
     {

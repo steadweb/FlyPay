@@ -10,41 +10,41 @@ use Steadweb\Flypay\AbstractEntity;
  * @ORM\Table(name="flypay__locations")
  * @ORM\HasLifecycleCallbacks
  */
-final class Location extends AbstractEntity
+class Location extends AbstractEntity
 {
     /**
      * @ORM\Id
      * @ORM\Column(type="guid")
      * @ORM\GeneratedValue(strategy="UUID")
      */
-    private $id;
+    protected $id;
 
     /**
      * @ORM\Column(name="title", type="string")
      */
-    private $title;
+    protected $title;
 
     /**
      * @ORM\Column(name="address", type="text", nullable=true)
      */
-    private $address;
+    protected $address;
 
     /**
      * @ORM\Column(name="latitude", type="string", nullable=true)
      */
-    private $latitude;
+    protected $latitude;
 
     /**
      * @ORM\Column(name="longitude", type="string", nullable=true)
      */
-    private $longitude;
+    protected $longitude;
 
     /**
      * Get the payment id.
      *
-     * @ORM\return integer
+     * @return string
      */
-    public function getId(): int
+    public function getId(): string
     {
         return $this->id;
     }
@@ -52,11 +52,11 @@ final class Location extends AbstractEntity
     /**
      * Set the location id.
      *
-     * @param int $id
+     * @param string $id
      *
      * @return void
      */
-    public function setId(int $id)
+    public function setId(string $id)
     {
         $this->id = $id;
     }
@@ -139,5 +139,19 @@ final class Location extends AbstractEntity
     public function setLongitude(string $longitude)
     {
         $this->longitude = $longitude;
+    }
+
+    /**
+     * @return array
+     */
+    public function jsonSerialize(): array
+    {
+        return [
+            'id' => $this->getId(),
+            'title' => $this->getTitle(),
+            'address' => $this->getAddress(),
+            'latitude' => $this->getLatitude(),
+            'longitude' => $this->getLongitude()
+        ];
     }
 }
