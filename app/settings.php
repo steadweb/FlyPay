@@ -2,6 +2,12 @@
 
 return [
     'settings' => [
+        'displayErrorDetails' => getenv('PRODUCTION') ? false : true,
+        'logger' => [
+            'name' => 'flypay',
+            'path' => __DIR__ . '/../logs/app.log',
+            'level' => \Monolog\Logger::DEBUG,
+        ],
         'doctrine' => [
             'meta' => [
                 'entity_path' => [
