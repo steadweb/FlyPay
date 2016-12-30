@@ -17,19 +17,19 @@ final class Table extends AbstractEntity
      * @ORM\Column(type="guid")
      * @ORM\GeneratedValue(strategy="UUID")
      */
-    private $id;
+    protected $id;
 
     /**
      * @ORM\Column(name="seats", type="integer")
      */
-    private $seats;
+    protected $seats;
 
     /**
-     * Get the payment id.
+     * Get the table id.
      *
-     * @ORM\return integer
+     * @return string
      */
-    public function getId(): int
+    public function getId(): string
     {
         return $this->id;
     }
@@ -37,35 +37,13 @@ final class Table extends AbstractEntity
     /**
      * Set the table id.
      *
-     * @param int $id
+     * @param string $id
      *
      * @return void
      */
-    public function setId(int $id)
+    public function setId(string $id)
     {
         $this->id = $id;
-    }
-
-    /**
-     * Get the UUID.
-     *
-     * @return string
-     */
-    public function getUuid(): string
-    {
-        return $this->uuid;
-    }
-
-    /**
-     * Set the UUID.
-     *
-     * @param string $uuid
-     *
-     * @return string
-     */
-    public function setUuid(string $uuid)
-    {
-        $this->uuid = $uuid;
     }
 
     /**
