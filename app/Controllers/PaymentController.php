@@ -69,4 +69,10 @@ final class PaymentController
             'id' => $payment->getId()
         ]);
     }
+
+    public function report(Request $request, Response $response)
+    {
+        $location = $request->getQueryParam('location', null);
+        return $response->withJson($this->paymentRepository->getLast24HoursByLocation($location));
+    }
 }

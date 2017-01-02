@@ -40,4 +40,21 @@ class PaymentRepository extends AbstractRepository
 
         return $payment;
     }
+
+    /**
+     * Find all payments within the last 24 hours, based on a location, if passed.
+     *
+     * @param array $details
+     */
+    public function getLast24HoursByLocation(string $location = null): array
+    {
+        $payments = array();
+        $entityManager = $this->entityManager->getRepository(Payment::class);
+
+        if(!is_null($location)) {
+            return $entityManager->findBy(['location' => $location]);
+        }
+
+        return $this->all();
+    }
 }
