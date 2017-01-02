@@ -23,9 +23,6 @@ $app = new \Slim\App($settings);
 // Set up dependencies
 include __DIR__ . '/../app/dependencies.php';
 
-// Register middleware
-include __DIR__ . '/../app/middleware.php';
-
 // Register routes
 include __DIR__ . '/../app/routes.php';
 
