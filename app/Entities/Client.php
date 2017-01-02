@@ -72,11 +72,21 @@ class Client extends AbstractEntity
     }
 
     /**
-     * Get the public key.
+     * Get the decoded public key.
      *
      * @return string
      */
     public function getPublicKey(): string
+    {
+        return base64_decode($this->public_key);
+    }
+
+    /**
+     * Get the encoded public key.
+     *
+     * @return string
+     */
+    public function getEncodedPublicKey(): string
     {
         return $this->public_key;
     }
@@ -88,6 +98,6 @@ class Client extends AbstractEntity
      */
     public function setPublicKey(string $public_key)
     {
-        $this->type = $type;
+        $this->public_key = $public_key;
     }
 }
