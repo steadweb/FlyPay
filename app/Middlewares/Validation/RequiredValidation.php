@@ -30,16 +30,18 @@ class RequiredValidation
      */
     public function __invoke(Request $request, Response $response, $next)
     {
-        // Assume the data passed is invalid, until proven otherwise.
-        $missing = true;
         $body = $request->getParsedBody();
 
-        if($body) {
-            $missing = array_diff($this->required, array_keys($body));
+        if(is_null($body)) {
+            return $response->withStatus(400)->withJson([
+                'message' => "Unable to parse payload. Please ensure a correctly formatted JSON payload is passed."
+            ]);
         }
 
+        $missing = array_diff($this->required, array_keys($body));
+
         if($missing) {
-            return $response->withStatus(400, 'Missing required params')->withJson([
+            return $response->withStatus(400)->withJson([
                 'message' => "This request is missing the following data",
                 'param' => array_values($missing)
             ]);
