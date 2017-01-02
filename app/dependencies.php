@@ -35,6 +35,17 @@ $container['Steadweb\Flypay\Actions\CardAction'] = function(\Slim\Container $c) 
     return new \Steadweb\Flypay\Actions\CardAction($resource, $c->get('logger'));
 };
 
+// Clients
+$container['Steadweb\Flypay\Entities\Client'] = function($c) {
+    return new Steadweb\Flypay\Entities\Client();
+};
+
+$container['Steadweb\Flypay\Actions\ClientAction'] = function(\Slim\Container $c) {
+    $entity = $c->get('Steadweb\Flypay\Entities\Client');
+    $resource = new \Steadweb\Flypay\Repositories\ClientRepository($c->get('em'), $entity);
+    return new \Steadweb\Flypay\Actions\ClientAction($resource, $c->get('logger'));
+};
+
 // Locations
 $container['Steadweb\Flypay\Entities\Location'] = function($c) {
     return new Steadweb\Flypay\Entities\Location();
