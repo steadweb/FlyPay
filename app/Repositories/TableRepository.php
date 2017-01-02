@@ -1,11 +1,11 @@
 <?php
 
-namespace Steadweb\Flypay\Resources;
+namespace Steadweb\Flypay\Repositories;
 
-use Steadweb\Flypay\AbstractResource;
+use Steadweb\Flypay\AbstractRepository;
 use Steadweb\Flypay\Entities\Table;
 
-final class TableResource extends AbstractResource
+final class TableRepository extends AbstractRepository
 {
     /**
      * Create a table.

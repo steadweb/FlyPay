@@ -4,27 +4,27 @@ namespace Steadweb\Flypay\Actions;
 
 use Slim\Http\Request;
 use Slim\Http\Response;
-use Steadweb\Flypay\Resources\LocationResource;
+use Steadweb\Flypay\Repositories\LocationRepository;
 use Psr\Log\LoggerInterface;
 
 final class LocationAction
 {
     /**
-     * @var LocationResource
+     * @var LocationRepository
      */
-    private $locationResource;
+    private $locationRepository;
 
     /**
      * LocationAction constructor.
      *
-     * @param LocationResource $locationResource
+     * @param LocationRepository $locationRepository
      */
     public function __construct(
-        LocationResource $locationResource,
+        LocationRepository $locationRepository,
         LoggerInterface $logger
     )
     {
-        $this->locationResource = $locationResource;
+        $this->locationRepository = $locationRepository;
         $this->logger = $logger;
     }
 
@@ -38,7 +38,7 @@ final class LocationAction
      */
     public function all(Request $request, Response $response)
     {
-        return $response->withJson($this->locationResource->all());
+        return $response->withJson($this->locationRepository->all());
     }
 
     /**
@@ -52,7 +52,7 @@ final class LocationAction
     {
         try {
             $details = $request->getParsedBody();
-            $this->locationResource->create($details);
+            $this->locationRepository->create($details);
         } catch(\Exception $e) {
             $this->logger->error($e->getMessage());
             return $response->withStatus(400, 'Unable to create location.');

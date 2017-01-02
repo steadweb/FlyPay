@@ -31,7 +31,7 @@ $container['Steadweb\Flypay\Entities\Card'] = function($c) {
 
 $container['Steadweb\Flypay\Actions\CardAction'] = function(\Slim\Container $c) {
     $entity = $c->get('Steadweb\Flypay\Entities\Card');
-    $resource = new \Steadweb\Flypay\Resources\CardResource($c->get('em'), $entity);
+    $resource = new \Steadweb\Flypay\Repositories\CardRepository($c->get('em'), $entity);
     return new \Steadweb\Flypay\Actions\CardAction($resource, $c->get('logger'));
 };
 
@@ -42,7 +42,7 @@ $container['Steadweb\Flypay\Entities\Location'] = function($c) {
 
 $container['Steadweb\Flypay\Actions\LocationAction'] = function(\Slim\Container $c) {
     $entity = $c->get('Steadweb\Flypay\Entities\Location');
-    $resource = new \Steadweb\Flypay\Resources\LocationResource($c->get('em'), $entity);
+    $resource = new \Steadweb\Flypay\Repositories\LocationRepository($c->get('em'), $entity);
     return new \Steadweb\Flypay\Actions\LocationAction($resource, $c->get('logger'));
 };
 
@@ -53,7 +53,7 @@ $container['Steadweb\Flypay\Entities\Payment'] = function($c) {
 
 $container['Steadweb\Flypay\Actions\PaymentAction'] = function(\Slim\Container $c) {
     $entity = $c->get('Steadweb\Flypay\Entities\Payment');
-    $resource = new \Steadweb\Flypay\Resources\PaymentResource($c->get('em'), $entity);
+    $resource = new \Steadweb\Flypay\Repositories\PaymentRepository($c->get('em'), $entity);
     return new \Steadweb\Flypay\Actions\PaymentAction($resource, $c->get('logger'));
 };
 
@@ -64,6 +64,6 @@ $container['Steadweb\Flypay\Entities\Table'] = function($c) {
 
 $container['Steadweb\Flypay\Actions\TableAction'] = function(\Slim\Container $c) {
     $entity = $c->get('Steadweb\Flypay\Entities\Table');
-    $resource = new \Steadweb\Flypay\Resources\TableResource($c->get('em'), $entity);
+    $resource = new \Steadweb\Flypay\Repositories\TableRepository($c->get('em'), $entity);
     return new \Steadweb\Flypay\Actions\TableAction($resource, $c->get('logger'));
 };

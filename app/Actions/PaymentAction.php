@@ -4,15 +4,15 @@ namespace Steadweb\Flypay\Actions;
 
 use Slim\Http\Request;
 use Slim\Http\Response;
-use Steadweb\Flypay\Resources\PaymentResource;
+use Steadweb\Flypay\Repositories\PaymentRepository;
 use Psr\Log\LoggerInterface;
 
 final class PaymentAction
 {
     /**
-     * @var PaymentResource
+     * @var PaymentRepository
      */
-    private $paymentResource;
+    private $paymentRepository;
 
     /**
      * @var LoggerInterface
@@ -22,14 +22,14 @@ final class PaymentAction
     /**
      * PaymentAction constructor.
      *
-     * @param PaymentResource $paymentResource
+     * @param PaymentRepository $paymentRepository
      */
     public function __construct(
-        PaymentResource $paymentResource,
+        PaymentRepository $paymentRepository,
         LoggerInterface $logger
     )
     {
-        $this->paymentResource = $paymentResource;
+        $this->paymentRepository = $paymentRepository;
         $this->logger = $logger;
     }
 
@@ -43,7 +43,7 @@ final class PaymentAction
      */
     public function all(Request $request, Response $response)
     {
-        return $response->withJson($this->paymentResource->all());
+        return $response->withJson($this->paymentRepository->all());
     }
 
     /**
@@ -56,7 +56,7 @@ final class PaymentAction
     {
         try {
             $details = $request->getParsedBody();
-            $this->paymentResource->create($details);
+            $this->paymentRepository->create($details);
         } catch(\Exception $e) {
             $this->logger->error($e->getMessage());
             return $response->withStatus(400, 'Unable to create payment.');

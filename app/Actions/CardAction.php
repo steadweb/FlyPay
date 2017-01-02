@@ -4,15 +4,15 @@ namespace Steadweb\Flypay\Actions;
 
 use Slim\Http\Request;
 use Slim\Http\Response;
-use Steadweb\Flypay\Resources\CardResource;
+use Steadweb\Flypay\Repositories\CardRepository;
 use Psr\Log\LoggerInterface;
 
 final class CardAction
 {
     /**
-     * @var CardResource
+     * @var CardRepository
      */
-    private $cardResource;
+    private $cardRepository;
 
     /**
      * @var LoggerInterface
@@ -22,14 +22,14 @@ final class CardAction
     /**
      * CardAction constructor.
      *
-     * @param CardResource $cardResource
+     * @param CardRepository $cardRepository
      */
     public function __construct(
-        CardResource $cardResource,
+        CardRepository $cardRepository,
         LoggerInterface $logger
     )
     {
-        $this->cardResource = $cardResource;
+        $this->cardRepository = $cardRepository;
         $this->logger = $logger;
     }
 
@@ -43,7 +43,7 @@ final class CardAction
      */
     public function all(Request $request, Response $response)
     {
-        return $response->withJson($this->cardResource->all());
+        return $response->withJson($this->cardRepository->all());
     }
 
     /**
@@ -57,7 +57,7 @@ final class CardAction
     {
         try {
             $details = $request->getParsedBody();
-            $this->cardResource->create($details);
+            $this->cardRepository->create($details);
         } catch(\Exception $e) {
             $this->logger->error($e->getMessage());
             return $response->withStatus(400, 'Unable to create card.');

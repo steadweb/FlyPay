@@ -4,27 +4,27 @@ namespace Steadweb\Flypay\Actions;
 
 use Slim\Http\Request;
 use Slim\Http\Response;
-use Steadweb\Flypay\Resources\TableResource;
+use Steadweb\Flypay\Repositories\TableRepository;
 use Psr\Log\LoggerInterface;
 
 final class TableAction
 {
     /**
-     *@var TableResource
+     *@var TableRepository
      */
-    private $tableResource;
+    private $tableRepository;
 
     /**
      * TableAction constructor.
      *
-     * @param TableResource $tableResource
+     * @param TableRepository $tableRepository
      */
     public function __construct(
-        TableResource $tableResource,
+        TableRepository $tableRepository,
         LoggerInterface $logger
     )
     {
-        $this->tableResource = $tableResource;
+        $this->tableRepository = $tableRepository;
         $this->logger = $logger;
     }
 
@@ -38,7 +38,7 @@ final class TableAction
      */
     public function all(Request $request, Response $response)
     {
-        return $response->withJson($this->tableResource->all());
+        return $response->withJson($this->tableRepository->all());
     }
 
     /**
@@ -52,7 +52,7 @@ final class TableAction
     {
         try {
             $details = $request->getParsedBody();
-            $this->tableResource->create($details);
+            $this->tableRepository->create($details);
         } catch(\Exception $e) {
             $this->logger->error($e->getMessage());
             return $response->withStatus(400, 'Unable to create table.');

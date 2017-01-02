@@ -1,11 +1,11 @@
 <?php
 
-namespace Steadweb\Flypay\Resources;
+namespace Steadweb\Flypay\Repositories;
 
-use Steadweb\Flypay\AbstractResource;
+use Steadweb\Flypay\AbstractRepository;
 use Steadweb\Flypay\Entities\Location;
 
-class LocationResource extends AbstractResource
+class LocationRepository extends AbstractRepository
 {
     /**
      * Create a Location.

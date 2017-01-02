@@ -1,14 +1,14 @@
 <?php declare(strict_types=1);
 
-namespace Steadweb\Flypay\Resources;
+namespace Steadweb\Flypay\Repositories;
 
-use Steadweb\Flypay\AbstractResource;
+use Steadweb\Flypay\AbstractRepository;
 use Steadweb\Flypay\Entities\Payment;
 use Steadweb\Flypay\Entities\Table;
 use Steadweb\Flypay\Entities\Card;
 use Steadweb\Flypay\Entities\Location;
 
-final class PaymentResource extends AbstractResource
+final class PaymentRepository extends AbstractRepository
 {
     /**
      * Create a payment.
