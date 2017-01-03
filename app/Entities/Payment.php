@@ -14,7 +14,7 @@ use Steadweb\Flypay\Entities\Location;
 use Steadweb\Flypay\Entities\Table;
 
 /**
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="Steadweb\Flypay\Repositories\PaymentRepository")
  * @ORM\Table(name="flypay__payments")
  * @ORM\HasLifecycleCallbacks
  */

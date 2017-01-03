@@ -22,15 +22,15 @@ final class PaymentRepository extends AbstractRepository
         $payment->setAmount(intval($details['amount']));
         $payment->setReference($details['reference']);
 
-        if($card = $this->entityManager->getRepository(Card::class)->find($details['card'])) {
+        if($card = $this->getEntityManager()->getRepository(Card::class)->find($details['card'])) {
             $payment->setCard($card);
         }
 
-        if($location = $this->entityManager->getRepository(Location::class)->find($details['location'])) {
+        if($location = $this->getEntityManager()->getRepository(Location::class)->find($details['location'])) {
             $payment->setLocation($location);
         }
 
-        $payment->getTables()->add($this->entityManager->getRepository(Table::class)->find($details['table']));
+        $payment->getTables()->add($this->getEntityManager()->getRepository(Table::class)->find($details['table']));
 
         $this->entityManager->persist($payment);
         $this->entityManager->flush();

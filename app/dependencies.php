@@ -1,5 +1,11 @@
 <?php declare(strict_types=1);
 
+use Steadweb\Flypay\Entities\Card;
+use Steadweb\Flypay\Entities\Client;
+use Steadweb\Flypay\Entities\Location;
+use Steadweb\Flypay\Entities\Payment;
+use Steadweb\Flypay\Entities\Table;
+
 $container = $app->getContainer();
 
 // Doctrine
@@ -30,9 +36,7 @@ $container['Steadweb\Flypay\Entities\Card'] = function($c) {
 };
 
 $container['Steadweb\Flypay\Controllers\CardController'] = function($c) {
-    $entity = $c->get('Steadweb\Flypay\Entities\Card');
-    $respository = new \Steadweb\Flypay\Repositories\CardRepository($c->get('em'), $entity);
-    return new \Steadweb\Flypay\Controllers\CardController($respository, $c->get('logger'));
+    return new \Steadweb\Flypay\Controllers\CardController($c->get('em')->getRepository(Card::class), $c->get('logger'));
 };
 
 // Clients
@@ -40,14 +44,8 @@ $container['Steadweb\Flypay\Entities\Client'] = function($c) {
     return new Steadweb\Flypay\Entities\Client();
 };
 
-$container['Steadweb\Flypay\Repositories\ClientRepository'] = function($c) {
-    $entity = $c->get('Steadweb\Flypay\Entities\Client');
-    return new \Steadweb\Flypay\Repositories\ClientRepository($c->get('em'), $entity);
-};
-
 $container['Steadweb\Flypay\Controllers\ClientController'] = function($c) {
-    $respository = $c->get('Steadweb\Flypay\Repositories\ClientRepository');
-    return new \Steadweb\Flypay\Controllers\ClientController($respository, $c->get('logger'));
+    return new \Steadweb\Flypay\Controllers\ClientController($c->get('em')->getRepository(Client::class), $c->get('logger'));
 };
 
 // Locations
@@ -56,9 +54,7 @@ $container['Steadweb\Flypay\Entities\Location'] = function($c) {
 };
 
 $container['Steadweb\Flypay\Controllers\LocationController'] = function($c) {
-    $entity = $c->get('Steadweb\Flypay\Entities\Location');
-    $respository = new \Steadweb\Flypay\Repositories\LocationRepository($c->get('em'), $entity);
-    return new \Steadweb\Flypay\Controllers\LocationController($respository, $c->get('logger'));
+    return new \Steadweb\Flypay\Controllers\LocationController($c->get('em')->getRepository(Location::class), $c->get('logger'));
 };
 
 // Payments
@@ -67,9 +63,7 @@ $container['Steadweb\Flypay\Entities\Payment'] = function($c) {
 };
 
 $container['Steadweb\Flypay\Controllers\PaymentController'] = function($c) {
-    $entity = $c->get('Steadweb\Flypay\Entities\Payment');
-    $respository = new \Steadweb\Flypay\Repositories\PaymentRepository($c->get('em'), $entity);
-    return new \Steadweb\Flypay\Controllers\PaymentController($respository, $c->get('logger'));
+    return new \Steadweb\Flypay\Controllers\PaymentController($c->get('em')->getRepository(Payment::class), $c->get('logger'));
 };
 
 // Tables
@@ -78,12 +72,10 @@ $container['Steadweb\Flypay\Entities\Table'] = function($c) {
 };
 
 $container['Steadweb\Flypay\Controllers\TableController'] = function($c) {
-    $entity = $c->get('Steadweb\Flypay\Entities\Table');
-    $respository = new \Steadweb\Flypay\Repositories\TableRepository($c->get('em'), $entity);
-    return new \Steadweb\Flypay\Controllers\TableController($respository, $c->get('logger'));
+    return new \Steadweb\Flypay\Controllers\TableController($c->get('em')->getRepository(Table::class), $c->get('logger'));
 };
 
 // Middleswares
 $container['Steadweb\Flypay\Middlewares\Authentication'] = function ($c) {
-    return new Steadweb\Flypay\Middlewares\Authentication($c->get('Steadweb\Flypay\Repositories\ClientRepository'));
+    return new Steadweb\Flypay\Middlewares\Authentication($c->get('em')->getRepository(Client::class));
 };

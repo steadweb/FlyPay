@@ -18,8 +18,7 @@ final class ClientRepository extends AbstractRepository
      */
     public function findByDomain(string $domain)
     {
-        $repository = $this->entityManager->getRepository(get_class($this->entity));
-        if($client = $repository->findOneBy(['domain' => $domain])) {
+        if($client = $this->findOneBy(['domain' => $domain])) {
             return $client;
         }
 
