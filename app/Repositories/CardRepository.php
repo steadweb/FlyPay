@@ -5,7 +5,7 @@ namespace Steadweb\Flypay\Repositories;
 use Steadweb\Flypay\AbstractRepository;
 use Steadweb\Flypay\Entities\Card;
 
-final class CardRepository extends AbstractRepository
+class CardRepository extends AbstractRepository
 {
     /**
      * Create a card.

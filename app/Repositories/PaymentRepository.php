@@ -8,7 +8,7 @@ use Steadweb\Flypay\Entities\Table;
 use Steadweb\Flypay\Entities\Card;
 use Steadweb\Flypay\Entities\Location;
 
-final class PaymentRepository extends AbstractRepository
+class PaymentRepository extends AbstractRepository
 {
     /**
      * Create a payment.

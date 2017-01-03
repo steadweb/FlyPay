@@ -5,7 +5,7 @@ namespace Steadweb\Flypay\Repositories;
 use Steadweb\Flypay\AbstractRepository;
 use Steadweb\Flypay\Entities\Client;
 
-final class ClientRepository extends AbstractRepository
+class ClientRepository extends AbstractRepository
 {
     /**
      * Finds a client based on the domain.
