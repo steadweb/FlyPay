@@ -1,18 +1,18 @@
 <?php declare(strict_types=1);
 
-namespace Steadweb\Flypay\Actions;
+namespace Steadweb\Flypay\Controllers;
 
 use Slim\Http\Request;
 use Slim\Http\Response;
-use Steadweb\Flypay\Repositories\CardRepository;
+use Steadweb\Flypay\Repositories\PaymentRepository;
 use Psr\Log\LoggerInterface;
 
-final class CardAction
+final class PaymentController
 {
     /**
-     * @var CardRepository
+     * @var PaymentRepository
      */
-    private $cardRepository;
+    private $paymentRepository;
 
     /**
      * @var LoggerInterface
@@ -20,21 +20,21 @@ final class CardAction
     private $logger;
 
     /**
-     * CardAction constructor.
+     * PaymentController constructor.
      *
-     * @param CardRepository $cardRepository
+     * @param PaymentRepository $paymentRepository
      */
     public function __construct(
-        CardRepository $cardRepository,
+        PaymentRepository $paymentRepository,
         LoggerInterface $logger
     )
     {
-        $this->cardRepository = $cardRepository;
+        $this->paymentRepository = $paymentRepository;
         $this->logger = $logger;
     }
 
     /**
-     * Get all the cards.
+     * Get all the Payments.
      *
      * @param Request $request
      * @param Response $response
@@ -43,26 +43,25 @@ final class CardAction
      */
     public function all(Request $request, Response $response)
     {
-        return $response->withJson($this->cardRepository->all());
+        return $response->withJson($this->paymentRepository->all());
     }
 
     /**
-     * Create a card.
+     * Create a payment.
      *
      * @param Request $request
      * @param Response $response
-     * @return Response
      */
     public function create(Request $request, Response $response)
     {
         try {
             $details = $request->getParsedBody();
-            $this->cardRepository->create($details);
+            $this->paymentRepository->create($details);
         } catch(\Exception $e) {
             $this->logger->error($e->getMessage());
-            return $response->withStatus(400, 'Unable to create card.');
+            return $response->withStatus(400, 'Unable to create payment.');
         }
 
-        return $response->withStatus(201, 'Card created.');
+        return $response->withStatus(201, 'Payment created.');
     }
 }

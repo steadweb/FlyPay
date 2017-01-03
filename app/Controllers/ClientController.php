@@ -1,13 +1,13 @@
 <?php declare(strict_types=1);
 
-namespace Steadweb\Flypay\Actions;
+namespace Steadweb\Flypay\Controllers;
 
 use Slim\Http\Request;
 use Slim\Http\Response;
 use Steadweb\Flypay\Repositories\ClientRepository;
 use Psr\Log\LoggerInterface;
 
-final class ClientAction
+final class ClientController
 {
     /**
      * @var ClientRepository
@@ -20,7 +20,7 @@ final class ClientAction
     private $logger;
 
     /**
-     * ClientAction constructor.
+     * ClientController constructor.
      *
      * @param ClientRepository $clientRepository
      */

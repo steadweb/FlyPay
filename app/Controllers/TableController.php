@@ -1,13 +1,13 @@
 <?php declare(strict_types=1);
 
-namespace Steadweb\Flypay\Actions;
+namespace Steadweb\Flypay\Controllers;
 
 use Slim\Http\Request;
 use Slim\Http\Response;
 use Steadweb\Flypay\Repositories\TableRepository;
 use Psr\Log\LoggerInterface;
 
-final class TableAction
+final class TableController
 {
     /**
      *@var TableRepository
@@ -15,7 +15,7 @@ final class TableAction
     private $tableRepository;
 
     /**
-     * TableAction constructor.
+     * TableController constructor.
      *
      * @param TableRepository $tableRepository
      */
