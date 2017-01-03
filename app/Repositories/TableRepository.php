@@ -14,10 +14,12 @@ final class TableRepository extends AbstractRepository
      */
     public function create(array $details)
     {
-        $table = new $this->entity;
+        $table = new Table;
+        $em = $this->getEntityManager();
+
         $table->setSeats(intval($details['seats']));
 
-        $this->entityManager->persist($table);
-        $this->entityManager->flush();
+        $em->persist($table);
+        $em->flush();
     }
 }

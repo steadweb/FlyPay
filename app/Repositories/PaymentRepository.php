@@ -17,22 +17,23 @@ final class PaymentRepository extends AbstractRepository
      */
     public function create(array $details)
     {
-        $payment = new $this->entity;
+        $payment = new Payment;
+        $em = $this->getEntityManager();
 
         $payment->setAmount(intval($details['amount']));
         $payment->setReference($details['reference']);
 
-        if($card = $this->getEntityManager()->getRepository(Card::class)->find($details['card'])) {
+        if($card = $em->getRepository(Card::class)->find($details['card'])) {
             $payment->setCard($card);
         }
 
-        if($location = $this->getEntityManager()->getRepository(Location::class)->find($details['location'])) {
+        if($location = $em->getRepository(Location::class)->find($details['location'])) {
             $payment->setLocation($location);
         }
 
-        $payment->getTables()->add($this->getEntityManager()->getRepository(Table::class)->find($details['table']));
+        $payment->getTables()->add($em->getRepository(Table::class)->find($details['table']));
 
-        $this->entityManager->persist($payment);
-        $this->entityManager->flush();
+        $em->persist($payment);
+        $em->flush();
     }
 }

@@ -32,12 +32,13 @@ final class ClientRepository extends AbstractRepository
      */
     public function create(array $details)
     {
-        $client = new $this->entity;
+        $client = new Client;
+        $em = $this->getEntityManager();
 
         $client->setDomain($details['domain']);
         $client->setPublicKey($details['public_key']);
 
-        $this->entityManager->persist($client);
-        $this->entityManager->flush();
+        $em->persist($client);
+        $em->flush();
     }
 }

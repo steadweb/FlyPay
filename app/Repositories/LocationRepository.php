@@ -14,14 +14,15 @@ class LocationRepository extends AbstractRepository
      */
     public function create(array $details)
     {
-        $location = new $this->entity;
+        $location = new Location;
+        $em = $this->getEntityManager();
 
         $location->setTitle($details['title']);
         $location->setAddress($details['address']);
         $location->setLatitude($details['latitude']);
         $location->setLongitude($details['longitude']);
 
-        $this->entityManager->persist($location);
-        $this->entityManager->flush();
+        $em->persist($location);
+        $em->flush();
     }
 }

@@ -14,12 +14,13 @@ final class CardRepository extends AbstractRepository
      */
     public function create(array $details)
     {
-        $card = new $this->entity;
+        $card = new Card;
+        $em = $this->getEntityManager();
 
         $card->setLast4($details['last4']);
         $card->setType($details['type']);
 
-        $this->entityManager->persist($card);
-        $this->entityManager->flush();
+        $em->persist($card);
+        $em->flush();
     }
 }
