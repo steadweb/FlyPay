@@ -1,6 +1,13 @@
 <?php declare(strict_types=1);
 
-use \Steadweb\Flypay\Middlewares\Authentication as AuthenticationMiddleware;
+$app->group('/client/', function() use ($app) {
+    $app->post('register', 'Steadweb\Flypay\Actions\ClientAction:register')
+        ->add(new \Steadweb\Flypay\Middlewares\Validation\RequiredValidation([
+            'domain',
+            'public_key'
+        ])
+    );
+});
 
 $app->group('/api/v1/', function() use ($app) {
     $app->get('cards', 'Steadweb\Flypay\Actions\CardAction:all');
@@ -35,4 +42,4 @@ $app->group('/api/v1/', function() use ($app) {
             'seats'
         ])
     );
-})->add(new AuthenticationMiddleware);
+})->add('Steadweb\Flypay\Middlewares\Authentication:auth');
