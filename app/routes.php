@@ -1,7 +1,7 @@
 <?php declare(strict_types=1);
 
 $app->group('/client/', function() use ($app) {
-    $app->post('register', 'Steadweb\Flypay\Actions\ClientAction:register')
+    $app->post('register', 'Steadweb\Flypay\Controllers\ClientController:register')
         ->add(new \Steadweb\Flypay\Middlewares\Validation\RequiredValidation([
             'domain',
             'public_key'
@@ -10,23 +10,23 @@ $app->group('/client/', function() use ($app) {
 });
 
 $app->group('/api/v1/', function() use ($app) {
-    $app->get('cards', 'Steadweb\Flypay\Actions\CardAction:all');
-    $app->post('cards', 'Steadweb\Flypay\Actions\CardAction:create')
+    $app->get('cards', 'Steadweb\Flypay\Controllers\CardController:all');
+    $app->post('cards', 'Steadweb\Flypay\Controllers\CardController:create')
         ->add(new \Steadweb\Flypay\Middlewares\Validation\RequiredValidation([
             'last4',
             'type'
         ])
     );
 
-    $app->get('locations', 'Steadweb\Flypay\Actions\LocationAction:all');
-    $app->post('locations', 'Steadweb\Flypay\Actions\LocationAction:create')
+    $app->get('locations', 'Steadweb\Flypay\Controllers\LocationController:all');
+    $app->post('locations', 'Steadweb\Flypay\Controllers\LocationController:create')
         ->add(new \Steadweb\Flypay\Middlewares\Validation\RequiredValidation([
             'title'
         ])
     );
 
-    $app->get('payments', 'Steadweb\Flypay\Actions\PaymentAction:all');
-    $app->post('payments', 'Steadweb\Flypay\Actions\PaymentAction:create')
+    $app->get('payments', 'Steadweb\Flypay\Controllers\PaymentController:all');
+    $app->post('payments', 'Steadweb\Flypay\Controllers\PaymentController:create')
         ->add(new \Steadweb\Flypay\Middlewares\Validation\RequiredValidation([
             'amount',
             'table',
@@ -36,8 +36,8 @@ $app->group('/api/v1/', function() use ($app) {
         ])
     );
 
-    $app->get('tables', 'Steadweb\Flypay\Actions\TableAction:all');
-    $app->post('tables', 'Steadweb\Flypay\Actions\TableAction:create')
+    $app->get('tables', 'Steadweb\Flypay\Controllers\TableController:all');
+    $app->post('tables', 'Steadweb\Flypay\Controllers\TableController:create')
         ->add(new \Steadweb\Flypay\Middlewares\Validation\RequiredValidation([
             'seats'
         ])

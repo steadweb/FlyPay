@@ -1,35 +1,40 @@
 <?php declare(strict_types=1);
 
-namespace Steadweb\Flypay\Actions;
+namespace Steadweb\Flypay\Controllers;
 
 use Slim\Http\Request;
 use Slim\Http\Response;
-use Steadweb\Flypay\Repositories\LocationRepository;
+use Steadweb\Flypay\Repositories\CardRepository;
 use Psr\Log\LoggerInterface;
 
-final class LocationAction
+final class CardController
 {
     /**
-     * @var LocationRepository
+     * @var CardRepository
      */
-    private $locationRepository;
+    private $cardRepository;
 
     /**
-     * LocationAction constructor.
+     * @var LoggerInterface
+     */
+    private $logger;
+
+    /**
+     * CardController constructor.
      *
-     * @param LocationRepository $locationRepository
+     * @param CardRepository $cardRepository
      */
     public function __construct(
-        LocationRepository $locationRepository,
+        CardRepository $cardRepository,
         LoggerInterface $logger
     )
     {
-        $this->locationRepository = $locationRepository;
+        $this->cardRepository = $cardRepository;
         $this->logger = $logger;
     }
 
     /**
-     * Get all the locations.
+     * Get all the cards.
      *
      * @param Request $request
      * @param Response $response
@@ -38,26 +43,26 @@ final class LocationAction
      */
     public function all(Request $request, Response $response)
     {
-        return $response->withJson($this->locationRepository->all());
+        return $response->withJson($this->cardRepository->all());
     }
 
     /**
-     * Create a Location.
+     * Create a card.
      *
      * @param Request $request
      * @param Response $response
-     * @return mixed
+     * @return Response
      */
     public function create(Request $request, Response $response)
     {
         try {
             $details = $request->getParsedBody();
-            $this->locationRepository->create($details);
+            $this->cardRepository->create($details);
         } catch(\Exception $e) {
             $this->logger->error($e->getMessage());
-            return $response->withStatus(400, 'Unable to create location.');
+            return $response->withStatus(400, 'Unable to create card.');
         }
 
-        return $response->withStatus(201, 'Location created.');
+        return $response->withStatus(201, 'Card created.');
     }
 }
