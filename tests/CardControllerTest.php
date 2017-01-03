@@ -30,7 +30,7 @@ class CardControllerTest extends \PHPUnit_Framework_TestCase
 
         $environment = \Slim\Http\Environment::mock([
             'REQUEST_METHOD' => 'GET',
-            'REQUEST_URI' => '/api/v1/payments',
+            'REQUEST_URI' => '/api/v1/cards',
             'QUERY_STRING'=> ''
         ]);
 

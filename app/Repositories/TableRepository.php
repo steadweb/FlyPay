@@ -5,7 +5,7 @@ namespace Steadweb\Flypay\Repositories;
 use Steadweb\Flypay\AbstractRepository;
 use Steadweb\Flypay\Entities\Table;
 
-final class TableRepository extends AbstractRepository
+class TableRepository extends AbstractRepository
 {
     /**
      * Create a table.

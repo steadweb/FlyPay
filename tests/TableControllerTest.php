@@ -29,7 +29,7 @@ class TableControllerTest extends \PHPUnit_Framework_TestCase
 
         $environment = \Slim\Http\Environment::mock([
             'REQUEST_METHOD' => 'GET',
-            'REQUEST_URI' => '/api/v1/locations',
+            'REQUEST_URI' => '/api/v1/tables',
             'QUERY_STRING'=> ''
         ]);
 
