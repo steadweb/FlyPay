@@ -29,8 +29,10 @@ class ClientRepository extends AbstractRepository
      * Create a client.
      *
      * @param array $details
+     *
+     * @return Client
      */
-    public function create(array $details)
+    public function create(array $details): Client
     {
         $client = new Client;
         $em = $this->getEntityManager();
@@ -40,5 +42,7 @@ class ClientRepository extends AbstractRepository
 
         $em->persist($client);
         $em->flush();
+
+        return $client;
     }
 }

@@ -2,7 +2,6 @@
 
 namespace Steadweb\Flypay;
 
-use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use JsonSerializable;
 use Steadweb\Flypay\Traits\Dates;

@@ -16,7 +16,7 @@ abstract class AbstractRepository extends EntityRepository
     {
         $entities = $this->findAll();
         $entities = array_map(
-            function ($entity) {
+            function (AbstractEntity $entity) {
                 return $entity->getArrayCopy();
             },
             $entities

@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace Steadweb\Flypay\Repositories;
 
@@ -11,8 +11,10 @@ class LocationRepository extends AbstractRepository
      * Create a Location.
      *
      * @param array $details
+     *
+     * @return Location;
      */
-    public function create(array $details)
+    public function create(array $details): Location
     {
         $location = new Location;
         $em = $this->getEntityManager();
@@ -24,5 +26,7 @@ class LocationRepository extends AbstractRepository
 
         $em->persist($location);
         $em->flush();
+
+        return $location;
     }
 }

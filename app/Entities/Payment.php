@@ -142,9 +142,9 @@ class Payment extends AbstractEntity
     /**
      * Get the payment id.
      *
-     * @return integer
+     * @return string
      */
-    public function getId(): int
+    public function getId(): string
     {
         return $this->id;
     }
@@ -152,11 +152,11 @@ class Payment extends AbstractEntity
     /**
      * Set the payment id.
      *
-     * @param int $id
+     * @param string $id
      *
      * @return void
      */
-    public function setId(int $id)
+    public function setId(string $id)
     {
         $this->id = $id;
     }

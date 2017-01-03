@@ -14,8 +14,10 @@ class PaymentRepository extends AbstractRepository
      * Create a payment.
      *
      * @param array $details
+     *
+     * @return Payment
      */
-    public function create(array $details)
+    public function create(array $details): Payment
     {
         $payment = new Payment;
         $em = $this->getEntityManager();
@@ -35,5 +37,7 @@ class PaymentRepository extends AbstractRepository
 
         $em->persist($payment);
         $em->flush();
+
+        return $payment;
     }
 }

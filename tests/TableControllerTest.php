@@ -2,9 +2,14 @@
 
 namespace Steadweb\Flypay\Tests;
 
+use Slim\Http\Request;
+use Slim\Http\Response;
+use Steadweb\Flypay\AbstractEntity;
 use Steadweb\Flypay\Controllers\TableController;
+use Steadweb\Flypay\Entities\Table;
+use Steadweb\Flypay\Repositories\TableRepository;
 
-class TableControllerTest extends \PHPUnit_Framework_TestCase
+class TableControllerTest extends AbstractControllerTestCase
 {
     public function testGetTableDetails()
     {
@@ -17,26 +22,65 @@ class TableControllerTest extends \PHPUnit_Framework_TestCase
 
         $expected = json_encode($data);
 
-        $tableRepository = \Mockery::mock('Steadweb\Flypay\Repositories\TableRepository')
-            ->makePartial()
-            ->shouldReceive('all')
-            ->andReturn($data)
-            ->getMock();
+        $repo = $this->mockRepository(TableRepository::class, 'all', $data);
 
-        $logger = \Mockery::mock('Psr\Log\LoggerInterface')->makePartial();
+        $controller = new TableController($repo, $this->mockLogger());
+        $request = Request::createFromEnvironment($this->mockEnvironment('GET', '/api/v1/tables'));
 
-        $controller = new TableController($tableRepository, $logger);
-
-        $environment = \Slim\Http\Environment::mock([
-            'REQUEST_METHOD' => 'GET',
-            'REQUEST_URI' => '/api/v1/tables',
-            'QUERY_STRING'=> ''
-        ]);
-
-        $request = \Slim\Http\Request::createFromEnvironment($environment);
-        $response = new \Slim\Http\Response();
-
-        $response = $controller->all($request, $response);
+        $response = $controller->all($request, $this->mockResponse());
         $this->assertSame((string)$response->getBody(), $expected);
+    }
+
+    public function testPostTableDetailsAndReturnId()
+    {
+        $table = $this->mockEntity();
+        $data = [
+            'seats' => 4,
+        ];
+
+        $response = $this->runMockedSlimApp($data, $table);
+
+        $this->assertSame(201, $response->getStatusCode());
+        $this->assertSame((string)$response->getBody(), '{"id":"'.$table->getId().'"}');
+    }
+
+    public function testPostTableDetailsWithInvalidInput()
+    {
+        $data = [];
+
+        $response = $this->runMockedSlimApp($data, $this->mockEntity());
+
+        $this->assertSame(400, $response->getStatusCode());
+        $this->assertSame((string)$response->getBody(), '{"message":"This request is missing the following data","param":["seats"]}');
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    protected function mockEntity(): AbstractEntity
+    {
+        $id = uniqid();
+        $table = new Table();
+        $table->setId($id);
+
+        return $table;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    protected function runMockedSlimApp(array $data, AbstractEntity $abstractEntity): Response
+    {
+        $repo = $this->mockRepository(TableRepository::class, 'create', $abstractEntity);
+        $response = $this->buildSlimAppAndReturnResponse(
+            TableController::class,
+            'create',
+            TableRepository::class,
+            $data,
+            $repo,
+            ['seats']
+        );
+
+        return $response;
     }
 }

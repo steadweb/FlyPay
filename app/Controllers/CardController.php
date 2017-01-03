@@ -23,6 +23,7 @@ final class CardController
      * CardController constructor.
      *
      * @param CardRepository $cardRepository
+     * @param LoggerInterface $logger
      */
     public function __construct(
         CardRepository $cardRepository,
@@ -57,12 +58,14 @@ final class CardController
     {
         try {
             $details = $request->getParsedBody();
-            $this->cardRepository->create($details);
+            $card = $this->cardRepository->create($details);
         } catch(\Exception $e) {
             $this->logger->error($e->getMessage());
             return $response->withStatus(400, 'Unable to create card.');
         }
 
-        return $response->withStatus(201, 'Card created.');
+        return $response->withStatus(201, 'Card created')->withJson([
+            'id' => $card->getId()
+        ]);
     }
 }
