@@ -6,7 +6,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Steadweb\Flypay\AbstractEntity;
 
 /**
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="Steadweb\Flypay\Repositories\TableRepository")
  * @ORM\Table(name="flypay__tables")
  * @ORM\HasLifecycleCallbacks
  */

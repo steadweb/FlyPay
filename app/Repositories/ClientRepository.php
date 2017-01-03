@@ -5,7 +5,7 @@ namespace Steadweb\Flypay\Repositories;
 use Steadweb\Flypay\AbstractRepository;
 use Steadweb\Flypay\Entities\Client;
 
-final class ClientRepository extends AbstractRepository
+class ClientRepository extends AbstractRepository
 {
     /**
      * Finds a client based on the domain.
@@ -18,8 +18,7 @@ final class ClientRepository extends AbstractRepository
      */
     public function findByDomain(string $domain)
     {
-        $repository = $this->entityManager->getRepository(get_class($this->entity));
-        if($client = $repository->findOneBy(['domain' => $domain])) {
+        if($client = $this->findOneBy(['domain' => $domain])) {
             return $client;
         }
 
@@ -33,12 +32,13 @@ final class ClientRepository extends AbstractRepository
      */
     public function create(array $details)
     {
-        $client = new $this->entity;
+        $client = new Client;
+        $em = $this->getEntityManager();
 
         $client->setDomain($details['domain']);
         $client->setPublicKey($details['public_key']);
 
-        $this->entityManager->persist($client);
-        $this->entityManager->flush();
+        $em->persist($client);
+        $em->flush();
     }
 }

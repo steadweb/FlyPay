@@ -8,7 +8,7 @@ use Steadweb\Flypay\Entities\Table;
 use Steadweb\Flypay\Entities\Card;
 use Steadweb\Flypay\Entities\Location;
 
-final class PaymentRepository extends AbstractRepository
+class PaymentRepository extends AbstractRepository
 {
     /**
      * Create a payment.
@@ -17,22 +17,23 @@ final class PaymentRepository extends AbstractRepository
      */
     public function create(array $details)
     {
-        $payment = new $this->entity;
+        $payment = new Payment;
+        $em = $this->getEntityManager();
 
         $payment->setAmount(intval($details['amount']));
         $payment->setReference($details['reference']);
 
-        if($card = $this->entityManager->getRepository(Card::class)->find($details['card'])) {
+        if($card = $em->getRepository(Card::class)->find($details['card'])) {
             $payment->setCard($card);
         }
 
-        if($location = $this->entityManager->getRepository(Location::class)->find($details['location'])) {
+        if($location = $em->getRepository(Location::class)->find($details['location'])) {
             $payment->setLocation($location);
         }
 
-        $payment->getTables()->add($this->entityManager->getRepository(Table::class)->find($details['table']));
+        $payment->getTables()->add($em->getRepository(Table::class)->find($details['table']));
 
-        $this->entityManager->persist($payment);
-        $this->entityManager->flush();
+        $em->persist($payment);
+        $em->flush();
     }
 }
