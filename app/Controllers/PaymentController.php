@@ -23,6 +23,7 @@ final class PaymentController
      * PaymentController constructor.
      *
      * @param PaymentRepository $paymentRepository
+     * @param LoggerInterface $logger
      */
     public function __construct(
         PaymentRepository $paymentRepository,
@@ -51,17 +52,21 @@ final class PaymentController
      *
      * @param Request $request
      * @param Response $response
+     *
+     * @return Response
      */
     public function create(Request $request, Response $response)
     {
         try {
             $details = $request->getParsedBody();
-            $this->paymentRepository->create($details);
+            $payment = $this->paymentRepository->create($details);
         } catch(\Exception $e) {
             $this->logger->error($e->getMessage());
             return $response->withStatus(400, 'Unable to create payment.');
         }
 
-        return $response->withStatus(201, 'Payment created.');
+        return $response->withStatus(201, 'Payment created.')->withJson([
+            'id' => $payment->getId()
+        ]);
     }
 }

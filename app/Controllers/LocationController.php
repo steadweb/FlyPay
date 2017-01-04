@@ -18,6 +18,7 @@ final class LocationController
      * LocationController constructor.
      *
      * @param LocationRepository $locationRepository
+     * @param LoggerInterface $logger
      */
     public function __construct(
         LocationRepository $locationRepository,
@@ -52,12 +53,14 @@ final class LocationController
     {
         try {
             $details = $request->getParsedBody();
-            $this->locationRepository->create($details);
+            $location = $this->locationRepository->create($details);
         } catch(\Exception $e) {
             $this->logger->error($e->getMessage());
             return $response->withStatus(400, 'Unable to create location.');
         }
 
-        return $response->withStatus(201, 'Location created.');
+        return $response->withStatus(201, 'Location created.')->withJson([
+            'id' => $location->getId()
+        ]);
     }
 }

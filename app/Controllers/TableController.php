@@ -18,6 +18,7 @@ final class TableController
      * TableController constructor.
      *
      * @param TableRepository $tableRepository
+     * @param LoggerInterface $logger
      */
     public function __construct(
         TableRepository $tableRepository,
@@ -52,12 +53,14 @@ final class TableController
     {
         try {
             $details = $request->getParsedBody();
-            $this->tableRepository->create($details);
+            $table = $this->tableRepository->create($details);
         } catch(\Exception $e) {
             $this->logger->error($e->getMessage());
             return $response->withStatus(400, 'Unable to create table.');
         }
 
-        return $response->withStatus(201, 'Table created.');
+        return $response->withStatus(201, 'Table created.')->withJson([
+            'id' => $table->getId()
+        ]);
     }
 }

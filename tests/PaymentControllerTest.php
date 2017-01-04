@@ -2,9 +2,14 @@
 
 namespace Steadweb\Flypay\Tests;
 
+use Slim\Http\Request;
+use Slim\Http\Response;
+use Steadweb\Flypay\AbstractEntity;
 use Steadweb\Flypay\Controllers\PaymentController;
+use Steadweb\Flypay\Entities\Payment;
+use Steadweb\Flypay\Repositories\PaymentRepository;
 
-class PaymentControllerTest extends \PHPUnit_Framework_TestCase
+class PaymentControllerTest extends AbstractControllerTestCase
 {
     public function testGetPaymentDetails()
     {
@@ -41,26 +46,72 @@ class PaymentControllerTest extends \PHPUnit_Framework_TestCase
 
         $expected = json_encode($data);
 
-        $paymentRepository = \Mockery::mock('Steadweb\Flypay\Repositories\PaymentRepository')
-            ->makePartial()
-            ->shouldReceive('all')
-            ->andReturn($data)
-            ->getMock();
+        $repo = $this->mockRepository(PaymentRepository::class, 'all', $data);
 
-        $logger = \Mockery::mock('Psr\Log\LoggerInterface')->makePartial();
+        $controller = new PaymentController($repo, $this->mockLogger());
+        $request = Request::createFromEnvironment($this->mockEnvironment('GET', '/api/v1/payments'));
 
-        $controller = new PaymentController($paymentRepository, $logger);
-
-        $environment = \Slim\Http\Environment::mock([
-            'REQUEST_METHOD' => 'GET',
-            'REQUEST_URI' => '/api/v1/payments',
-            'QUERY_STRING'=> ''
-        ]);
-
-        $request = \Slim\Http\Request::createFromEnvironment($environment);
-        $response = new \Slim\Http\Response();
-
-        $response = $controller->all($request, $response);
+        $response = $controller->all($request, $this->mockResponse());
         $this->assertSame((string)$response->getBody(), $expected);
+    }
+
+    public function testPostPaymentDetailsAndReturnId()
+    {
+        $card = $this->mockEntity();
+        $data = [
+            'amount' => 10000,
+            'card' => uniqid(),
+            'location' => uniqid(),
+            'table' => uniqid()
+        ];
+
+        $response = $this->runMockedSlimApp($data, $card);
+
+        $this->assertSame(201, $response->getStatusCode());
+        $this->assertSame((string)$response->getBody(), '{"id":"'.$card->getId().'"}');
+    }
+
+    public function testPostPaymentDetailsWithInvalidInput()
+    {
+        $data = [
+            'card' => uniqid(),
+            'location' => uniqid(),
+            'table' => uniqid()
+        ];
+
+        $response = $this->runMockedSlimApp($data, $this->mockEntity());
+
+        $this->assertSame(400, $response->getStatusCode());
+        $this->assertSame((string)$response->getBody(), '{"message":"This request is missing the following data","param":["amount"]}');
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    protected function mockEntity(): AbstractEntity
+    {
+        $id = uniqid();
+        $payment = new Payment();
+        $payment->setId($id);
+
+        return $payment;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    protected function runMockedSlimApp(array $data, AbstractEntity $abstractEntity): Response
+    {
+        $repo = $this->mockRepository(PaymentRepository::class, 'create', $abstractEntity);
+        $response = $this->buildSlimAppAndReturnResponse(
+            PaymentController::class,
+            'create',
+            PaymentRepository::class,
+            $data,
+            $repo,
+            ['amount', 'card', 'location', 'table']
+        );
+
+        return $response;
     }
 }

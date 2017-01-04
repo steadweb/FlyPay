@@ -23,6 +23,7 @@ final class ClientController
      * ClientController constructor.
      *
      * @param ClientRepository $clientRepository
+     * @param LoggerInterface $logger
      */
     public function __construct(
         ClientRepository $clientRepository,
@@ -44,12 +45,14 @@ final class ClientController
     {
         try {
             $details = $request->getParsedBody();
-            $this->clientRepository->create($details);
+            $client = $this->clientRepository->create($details);
         } catch(\Exception $e) {
             $this->logger->error($e->getMessage());
             return $response->withStatus(400, 'Unable to register public key.');
         }
 
-        return $response->withStatus(201, 'Public key registered.');
+        return $response->withStatus(201, 'Public key registered.')->withJson([
+            'id' => $client->getId()
+        ]);
     }
 }

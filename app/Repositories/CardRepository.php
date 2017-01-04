@@ -11,8 +11,10 @@ class CardRepository extends AbstractRepository
      * Create a card.
      *
      * @param array $details
+     *
+     * @return Card
      */
-    public function create(array $details)
+    public function create(array $details): Card
     {
         $card = new Card;
         $em = $this->getEntityManager();
@@ -22,5 +24,7 @@ class CardRepository extends AbstractRepository
 
         $em->persist($card);
         $em->flush();
+
+        return $card;
     }
 }
