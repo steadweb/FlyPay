@@ -20,12 +20,12 @@ class Client extends AbstractEntity
     protected $id;
 
     /**
-     * @ORM\Column(name="domain", type="string")
+     * @ORM\Column(name="domain", type="string", unique=true)
      */
     protected $domain;
 
     /**
-     * @ORM\Column(name="public_key", type="text")
+     * @ORM\Column(name="public_key", type="text", nullable=false)
      */
     protected $public_key;
 
