@@ -21,7 +21,7 @@ trait Dates
      */
     public function getCreated(): DateTime
     {
-        return new DateTime($this->created);
+        return $this->created;
     }
 
     /**
@@ -37,7 +37,7 @@ trait Dates
      */
     public function getUpdated(): DateTime
     {
-        return new DateTime($this->updated);
+        return $this->updated;
     }
 
     /**
