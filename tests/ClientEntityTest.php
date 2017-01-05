@@ -34,6 +34,6 @@ class ClientEntityTest extends \PHPUnit_Framework_TestCase
         $this->assertSame($this->id, $this->client->getId());
         $this->assertSame('https://steadweb.flypay.com', $this->client->getDomain());
         $this->assertSame('foo.bar.baz', $this->client->getPublicKey());
-        $this->assertSame(json_encode('foo.bar.baz'), $this->client->getEncodedPublicKey());
+        $this->assertSame(base64_encode('foo.bar.baz'), $this->client->getEncodedPublicKey());
     }
 }
