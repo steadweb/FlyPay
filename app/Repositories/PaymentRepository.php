@@ -59,17 +59,23 @@ class PaymentRepository extends AbstractRepository
             'to' => new \DateTime('now')
         ];
 
-        $query = $qb->select('payment')
-            ->from(Payment::class, 'payment');
+        $query = $qb->select('p')->from(Payment::class, 'p');
 
         if(!is_null($location)) {
-            $query->where('payment.location = ' . ':location');
+            $query->where('p.location = ' . ':location');
             $params += ['location' => $location];
         }
 
-        return $query->andWhere($qb->expr()->between('payment.created', ':from', ':to'))
+        $data = $query->andWhere($qb->expr()->between('p.created', ':from', ':to'))
             ->setParameters($params)
-            ->getQuery()
-            ->getArrayResult();
+            ->getQuery();
+
+        $payments = [];
+
+        foreach($data->getResult() as $payment) {
+            $payments[] = $payment->getArrayCopy();
+        }
+
+        return $payments;
     }
 }
