@@ -8,12 +8,6 @@
             "email": "ljsteadman@gmail.com"
         }
     ],
-    "repositories": [
-        {
-            "type": "vcs",
-            "url": "https://github.com/steadweb/php-jwt.git"
-        }
-    ],
     "autoload": {
         "psr-4": {
             "Steadweb\\Flypay\\": "app",

@@ -49,11 +49,18 @@ final class Authentication
                 throw new \Error("Token missing within headers");
             }
 
-            // Fetch the key based on REMOTE_ADDR (i.e. the domain).
+            // Fetch the key based on iss (i.e. the domain).
             // If not found, we throw an error, internally.
             // If the public key fails, an error is thrown.
-            $domain = $request->getServerParam('REMOTE_ADDR');
-            $client = $this->clientRepository->findByDomain($domain);
+            // your application code
+            list($headb64, $bodyb64, $cryptob64) = explode('.', $token);
+            $body = JWT::jsonDecode(JWT::urlsafeB64Decode($bodyb64));
+
+            if(!isset($body->iss)) {
+                throw new \Error('"iss" must be set within JWT.');
+            }
+
+            $client = $this->clientRepository->findByDomain($body->iss);
             $public_key = openssl_pkey_get_public($client->getPublicKey());
 
             // If decoding the token against the public key, an error will
