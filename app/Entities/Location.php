@@ -68,7 +68,7 @@ class Location extends AbstractEntity
      */
     public function getTitle(): string
     {
-        return $this->title;
+        return (string) $this->title;
     }
 
     /**
@@ -88,7 +88,7 @@ class Location extends AbstractEntity
      */
     public function getAddress(): string
     {
-        return $this->address;
+        return (string) $this->address;
     }
 
     /**
@@ -108,7 +108,7 @@ class Location extends AbstractEntity
      */
     public function getLatitude(): string
     {
-        return $this->latitude;
+        return (string) $this->latitude;
     }
 
     /**
@@ -128,7 +128,7 @@ class Location extends AbstractEntity
      */
     public function getLongitude(): string
     {
-        return $this->longitude;
+        return (string) $this->longitude;
     }
 
     /**
