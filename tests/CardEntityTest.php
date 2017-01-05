@@ -46,4 +46,16 @@ class CardEntityTest extends \PHPUnit_Framework_TestCase
 
         $this->assertSame($arr, $this->card->jsonSerialize());
     }
+
+    public function testSetPrePersist()
+    {
+        $this->card->onPrePersist();
+        $this->assertInstanceOf('\DateTime', $this->card->getCreated());
+    }
+
+    public function testSetPreUpdate()
+    {
+        $this->card->onPreUpdate();
+        $this->assertInstanceOf('\DateTime', $this->card->getUpdated());
+    }
 }

@@ -13,6 +13,6 @@ trait PreUpdate
      */
     public function onPreUpdate()
     {
-        $this->setCreated(new DateTime('now'));
+        $this->setUpdated(new DateTime('now'));
     }
 }
