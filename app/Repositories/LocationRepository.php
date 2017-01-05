@@ -20,9 +20,9 @@ class LocationRepository extends AbstractRepository
         $em = $this->getEntityManager();
 
         $location->setTitle($details['title']);
-        $location->setAddress($details['address']);
-        $location->setLatitude($details['latitude']);
-        $location->setLongitude($details['longitude']);
+        $location->setAddress((string)$details['address']);
+        $location->setLatitude((string)$details['latitude']);
+        $location->setLongitude((string)$details['longitude']);
 
         $em->persist($location);
         $em->flush();

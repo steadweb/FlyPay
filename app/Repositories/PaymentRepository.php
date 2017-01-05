@@ -2,6 +2,7 @@
 
 namespace Steadweb\Flypay\Repositories;
 
+use Doctrine\ORM\Query;
 use Steadweb\Flypay\AbstractRepository;
 use Steadweb\Flypay\Entities\Payment;
 use Steadweb\Flypay\Entities\Table;
@@ -44,17 +45,31 @@ class PaymentRepository extends AbstractRepository
     /**
      * Find all payments within the last 24 hours, based on a location, if passed.
      *
-     * @param array $details
+     * @param string $location
+     *
+     * @return array
      */
     public function getLast24HoursByLocation(string $location = null): array
     {
-        $payments = array();
-        $entityManager = $this->entityManager->getRepository(Payment::class);
+        $em = $this->getEntityManager();
+        $qb = $em->createQueryBuilder();
+
+        $params = [
+            'from' => new \DateTime('-1 day'),
+            'to' => new \DateTime('now')
+        ];
+
+        $query = $qb->select('payment')
+            ->from(Payment::class, 'payment');
 
         if(!is_null($location)) {
-            return $entityManager->findBy(['location' => $location]);
+            $query->where('payment.location = ' . ':location');
+            $params += ['location' => $location];
         }
 
-        return $this->all();
+        return $query->andWhere($qb->expr()->between('payment.created', ':from', ':to'))
+            ->setParameters($params)
+            ->getQuery()
+            ->getArrayResult();
     }
 }
