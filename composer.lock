@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "5c85fc248e94b9941fcc9141874ed070",
-    "content-hash": "dd3131abd2e6d7326340d63009064406",
+    "hash": "46bd2353e749a77572f52ad7caff4a8d",
+    "content-hash": "6b3292923b96a6bd14e652dea3059c8b",
     "packages": [
         {
             "name": "container-interop/container-interop",
@@ -712,13 +712,13 @@
             "version": "dev-master",
             "source": {
                 "type": "git",
-                "url": "https://github.com/steadweb/php-jwt.git",
-                "reference": "cb52853c87a830fe1e5ce1bdc5a55124b10addb5"
+                "url": "https://github.com/firebase/php-jwt.git",
+                "reference": "3aa3d978973f080746b2f2f75b10d3f38cbb0557"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/steadweb/php-jwt/zipball/cb52853c87a830fe1e5ce1bdc5a55124b10addb5",
-                "reference": "cb52853c87a830fe1e5ce1bdc5a55124b10addb5",
+                "url": "https://api.github.com/repos/firebase/php-jwt/zipball/3aa3d978973f080746b2f2f75b10d3f38cbb0557",
+                "reference": "3aa3d978973f080746b2f2f75b10d3f38cbb0557",
                 "shasum": ""
             },
             "require": {
@@ -727,10 +727,10 @@
             "type": "library",
             "autoload": {
                 "psr-4": {
-                    "Firebase\\JWT\\": "src",
-                    "Firebase\\JWT\\Tests\\": "tests"
+                    "Firebase\\JWT\\": "src"
                 }
             },
+            "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "BSD-3-Clause"
             ],
@@ -748,10 +748,7 @@
             ],
             "description": "A simple library to encode and decode JSON Web Tokens (JWT) in PHP. Should conform to the current spec.",
             "homepage": "https://github.com/firebase/php-jwt",
-            "support": {
-                "source": "https://github.com/steadweb/php-jwt/tree/master"
-            },
-            "time": "2016-12-31 19:21:27"
+            "time": "2016-08-31 23:16:29"
         },
         {
             "name": "monolog/monolog",
