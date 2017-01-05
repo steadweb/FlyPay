@@ -6,3 +6,4 @@ RUN docker-php-source extract \
 && docker-php-ext-install pdo pdo_mysql \
 && docker-php-source delete
 
+RUN pecl install xdebug-2.5.0 && docker-php-ext-enable xdebug
