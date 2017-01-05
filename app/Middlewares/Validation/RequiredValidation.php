@@ -30,7 +30,9 @@ class RequiredValidation
      */
     public function __invoke(Request $request, Response $response, $next)
     {
-        $body = $request->getParsedBody();
+        $body = array_filter($request->getParsedBody(), function($value) {
+            return $value ? true : false;
+        });
 
         if(is_null($body)) {
             return $response->withStatus(400)->withJson([

@@ -5,8 +5,8 @@ $app->group('/client/', function() use ($app) {
         ->add(new \Steadweb\Flypay\Middlewares\Validation\RequiredValidation([
             'domain',
             'public_key'
-        ])
-    );
+        ]))
+        ->add(new \Steadweb\Flypay\Middlewares\Validation\IsBase64Validation());
 });
 
 $app->group('/api/v1/', function() use ($app) {
