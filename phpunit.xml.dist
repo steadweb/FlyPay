@@ -20,6 +20,9 @@
         <whitelist>
             <directory suffix=".php">app</directory>
             <exclude>
+                <file>app/dependencies.php</file>
+                <file>app/routes.php</file>
+                <file>app/settings.php</file>
                 <directory suffix=".php">tests</directory>
             </exclude>
         </whitelist>
