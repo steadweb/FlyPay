@@ -15,7 +15,7 @@ class LocationFixture extends AbstractFixture
         $location->setTitle("Foo");
         $location->setAddress("Bar");
         $location->setLatitude("123");
-        $location->setLatitude("456");
+        $location->setLongitude("456");
 
         $manager->persist($location);
         $manager->flush();
