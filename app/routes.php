@@ -42,4 +42,6 @@ $app->group('/api/v1/', function() use ($app) {
             'seats'
         ])
     );
+
+    $app->get('report', 'Steadweb\Flypay\Controllers\PaymentController:report');
 })->add('Steadweb\Flypay\Middlewares\Authentication:auth');
