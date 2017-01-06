@@ -30,15 +30,17 @@ class RequiredValidation
      */
     public function __invoke(Request $request, Response $response, $next)
     {
-        $body = array_filter($request->getParsedBody(), function($value) {
-            return $value ? true : false;
-        });
+        $body = $request->getParsedBody();
 
         if(is_null($body)) {
             return $response->withStatus(400)->withJson([
                 'message' => "Unable to parse payload. Please ensure a correctly formatted JSON payload is passed."
             ]);
         }
+
+        $body = array_filter($body, function($value) {
+            return $value ? true : false;
+        });
 
         $missing = array_diff($this->required, array_keys($body));
 
