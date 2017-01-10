@@ -85,7 +85,7 @@ docker run --rm -v $(pwd):/app -w /app --link flypay-db:mysql flypay php vendor/
 
 The microserivce has now been installed with demo data.
 
-### Authencation
+### Authentication
 
 The microservice leverages JWT to auth an app against the API. Out of the box, 1 app is registered, but it's suggested for an app to register it's own `public_key` using the `/client/register` endpoint.
 
