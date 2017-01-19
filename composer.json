@@ -10,7 +10,11 @@
     ],
     "autoload": {
         "psr-4": {
-            "Steadweb\\Flypay\\": "app",
+            "Steadweb\\Flypay\\": "app"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
             "Steadweb\\Flypay\\Tests\\": "tests"
         }
     },
